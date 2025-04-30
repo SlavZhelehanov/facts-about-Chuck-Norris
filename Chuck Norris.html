@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Chuck</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/solar/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center">
+        <h1>Well-known facts about Chai Norris</h1>
+    </div>
+    <table class="table table-hover text-center">
+        <tbody id="value">
+
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <button type="button" onclick=reload() class="btn btn-primary">Load new fact</button>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+<!-- <script src="index.js"></script> -->
+<script>
+    const value = document.getElementById('value');
+
+    function reload() {
+        const options = {
+            method: 'GET',
+            url: 'https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random',
+            headers: {
+                accept: 'application/json',
+                'X-RapidAPI-Key': 'c6f012a988msh1caafe3edb47168p1b6878jsn22318fa43093',
+                'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com'
+            }
+        };
+
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+            value.innerHTML = `<tr class="table-warning"><th scope="row">${response.data.value}</th><tr><br>`;
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+</script>
+
+</html>
